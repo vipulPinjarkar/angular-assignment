@@ -1,0 +1,71 @@
+<div class="table-responsive">
+
+  <table class="table">
+    <tr>
+        <hr>
+        <input type="button" value="Add" class="btn btn-default" (click)="addusr()" />
+        <div style="overflow:auto">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <td>Id</td>
+                <td>usrNo</td>
+                <td>usrName</td>
+                <td>Address</td>
+                <td></td>
+                <td></td>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr *ngFor="let usr of users;let i=idx">
+                <ng-template [ngTemplateOutlet]="loadTemplate(usr)" [ngOutletContext]="{ $implicit: usr, idx: i }"></ng-template>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+        <div>{{statusMessage}}</div>
+
+
+        <!--The Html Tusrlate for Read-Only Rows-->
+        <ng-tusrlate #readOnlyTusrlate let-usr>
+          <td>{{usr.id}}</td>
+          <td>{{usr.usrNo}}</td>
+          <td>{{usr.usrName}}</td>
+          <td>{{usr.Address}}</td>
+          <td>
+            <input type="button" value="Edit" class="btn btn-default" (click)="editUser(usr)" />
+          </td>
+          <td>
+            <input type="button" value="Delete" (click)="deleteUser(usr)" class="btn btn-danger" />
+          </td>
+        </ng-tusrlate>
+        <!--Ends Here-->
+        <!--The Html Tusrlate for Editable Rows-->
+        <ng-tusrlate #editTusrlate>
+          <td>
+            <input type="text" [(ngModel)]="selusr.id" readonly disabled />
+          </td>
+          <td>
+            <input type="text" [(ngModel)]="selusr.usrNo" />
+          </td>
+          <td>
+            <input type="text" [(ngModel)]="selusr.usrName" />
+          </td>
+          <td>
+            <input type="text" [(ngModel)]="selusr.Address" />
+          </td>
+
+          <td>
+            <input type="button" value="Save" (click)="saveUser()" class="btn btn-success" />
+          </td>
+          <td>
+            <input type="button" value="Cancel" (click)="cancel()" class="btn btn-warning" />
+          </td>
+
+        </ng-template>
+      </th>
+    </tr>
+  </table>
+</div>
